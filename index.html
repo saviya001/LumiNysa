@@ -12,7 +12,6 @@
     <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=LumiNysa+Face+Pack" />
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script type="application/ld+json">
@@ -33,201 +32,303 @@
     </script>
 
     <style>
-       
-        .gradient-bg {
-            background: linear-gradient(-45deg, #0b0b0b, #1a141d, #0b0b0b, #12151e);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-
+        /* --- NEW: Aurora Background & Enhanced Styles --- */
         @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-   
-        .noise { background-image: radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px); background-size: 4px 4px; }
+        @keyframes aurora {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        body {
+            position: relative;
+            overflow-x: hidden;
+            background-color: #0c0c0f;
+            cursor: none; /* Hide default cursor */
+        }
+        
+        .gradient-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0b0b0b, #1a141d, #0b0b0b, #12151e);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        .aurora-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 140vmax;
+            height: 140vmax;
+            z-index: -1;
+            transform-origin: center;
+            animation: aurora 20s linear infinite;
+        }
+
+        .aurora-bg::before, .aurora-bg::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+
+        .aurora-bg::before {
+            width: 60%;
+            height: 60%;
+            top: 10%;
+            left: 10%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, rgba(251, 191, 36, 0) 70%);
+        }
+
+        .aurora-bg::after {
+            width: 50%;
+            height: 50%;
+            bottom: 15%;
+            right: 15%;
+            background: radial-gradient(circle, rgba(244, 114, 182, 0.3) 0%, rgba(244, 114, 182, 0) 70%);
+        }
+
+        /* --- NEW: Custom Cursor Styles --- */
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #fbbf24; /* Amber color */
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(251, 191, 36, 0.5);
+            transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+        }
     </style>
 </head>
-<body class="gradient-bg text-white selection:bg-white/20">
-    <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
+<body class="text-white selection:bg-white/20">
+    
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <div class="gradient-bg-container">
+        <div class="aurora-bg"></div>
+    </div>
+    
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/40 border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-            
-                <span class="text-xl tracking-wide font-semibold">Lumi<span class="text-amber-200">Nysa</span></span>
+            <a href="#" class="cursor-pointer">
+                <span class="text-xl tracking-wide font-semibold">Lumi<span class="text-amber-300">Nysa</span></span>
             </a>
             <nav class="hidden md:flex items-center gap-6 text-sm">
-                <a href="#product" class="hover:text-amber-200 transition-colors">Product</a>
-                <a href="#benefits" class="hover:text-amber-200 transition-colors">Benefits</a>
-                <a href="#contact" class="hover:text-amber-200 transition-colors">Contact</a>
+                <a href="#product" class="hover:text-amber-300 transition-colors">Product</a>
+                <a href="#benefits" class="hover:text-amber-300 transition-colors">Benefits</a>
+                <a href="#contact" class="hover:text-amber-300 transition-colors">Contact</a>
             </nav>
-            <a href="#order" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-sm transition-colors">Order Now</a>
+            <a href="#order" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-sm transition-all hover:scale-105 active:scale-95">Order Now</a>
         </div>
     </header>
 
-    <section class="noise overflow-hidden">
-        <div class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
-            <div data-aos="fade-up">
-                <h1 class="text-4xl md:text-5xl font-semibold leading-tight">
-                    Glow Naturally with <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-rose-200 to-fuchsia-200">LumiNysa</span>
-                </h1>
-                <p class="mt-4 text-white/70">A gentle, herbal face pack crafted for everyday radiance. Clean formula, visible results.</p>
-                <div class="mt-6 flex gap-3 flex-wrap">
-                    <a href="#order" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-200 via-rose-200 to-fuchsia-200 text-black font-medium transition-transform hover:scale-105">Order via WhatsApp</a>
-                    <a href="#product" class="px-5 py-3 rounded-2xl border border-white/15 hover:bg-white/10 transition-colors">See Details</a>
-                </div>
-                <div class="mt-8 flex items-center gap-4 text-white/70">
-                    <span class="text-xs uppercase tracking-wider">Follow</span>
-                    <a aria-label="Instagram" href="https://www.instagram.com/luminysa_ayurvedic/?igsh=MTV1YXJjeGozY3VmMw%3D%3D&utm_source=qr#" target="_blank" class="hover:text-white transition-colors">Instargram</a>
-                    <a aria-label="TikTok" href="https://www.tiktok.com/@luminysa_1?_t=ZS-8zOdz1VaAUi&_r=1" target="_blank" class="hover:text-white transition-colors">TikTok</a>
-                    <a aria-label="Facebook" href="https://www.facebook.com/share/16yz8GPiWU/?mibextid=wwXIfr" target="_blank" class="hover:text-white transition-colors">Facebook</a>
-                </div>
-            </div>
-            <div class="relative" data-aos="zoom-in" data-aos-delay="200">
-                <div class="absolute -inset-4 bg-gradient-to-r from-amber-200/20 via-rose-200/20 to-fuchsia-200/20 blur-3xl rounded-3xl"></div>
-                <img src="Natural Skin Care, Face Care, Instagram Post.png" alt="LumiNysa Face Pack" class="relative rounded-3xl w-full border border-white/10 shadow-2xl" />
-            </div>
-        </div>
-    </section>
-
-    <section id="product" class="bg-white/5 border-y border-white/10 overflow-hidden">
-        <div class="max-w-6xl mx-auto px-4 py-14">
-            <div class="grid md:grid-cols-2 gap-8 items-start">
-                <div class="rounded-3xl p-1 bg-gradient-to-br from-amber-200/20 via-rose-200/10 to-fuchsia-200/20" data-aos="fade-right">
-                    <img src="WhatsApp Image 2025-08-27 at 14.32.39_41be4aa7.png" alt="LumiNysa Face Pack Jar" class="rounded-3xl w-full bg-black border border-white/10" />
-                </div>
-                <div class="space-y-5" data-aos="fade-left" data-aos-delay="100">
-                    <h2 class="text-2xl md:text-3xl font-semibold">LumiNysa Face Pack</h2>
-                    <p class="text-white/70">Herbal blend with turmeric, sandalwood, aloe and kaolin. Smooths, brightens and refreshes — suitable for all skin types.</p>
-                    <div id="benefits" class="grid grid-cols-2 gap-3 text-sm">
-                        <div class="p-4 rounded-2xl bg-black/40 border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-amber-200/50">✨ Natural glow</div>
-                        <div class="p-4 rounded-2xl bg-black/40 border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-amber-200/50">🛡️ Gentle on skin</div>
-                        <div class="p-4 rounded-2xl bg-black/40 border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-amber-200/50">🌿 Herbal formula</div>
-                        <div class="p-4 rounded-2xl bg-black/40 border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-amber-200/50">🧪 Paraben‑free</div>
+    <main>
+        <section class="relative overflow-hidden py-20">
+            <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+                <div data-aos="fade-up">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight">
+                        Glow Naturally with <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-rose-300 to-fuchsia-400">LumiNysa</span>
+                    </h1>
+                    <p class="mt-4 text-white/70">A gentle, herbal face pack crafted for everyday radiance. Clean formula, visible results.</p>
+                    <div class="mt-8 flex gap-4 flex-wrap">
+                        <a href="#order" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 text-black font-semibold transition-transform hover:scale-105 shadow-lg shadow-amber-500/20">Order via WhatsApp</a>
+                        <a href="#product" class="px-6 py-3 rounded-2xl border border-white/20 bg-white/10 hover:bg-white/20 transition-colors">See Details</a>
                     </div>
-                    <div class="flex flex-wrap items-center gap-4 pt-2">
-                        <label class="text-sm text-white/70" for="variant">Size</label>
-                        <select id="variant" class="bg-black/60 border border-white/15 rounded-xl px-3 py-2 text-sm">
-                            <option value="100g|900">100 g — LKR 900</option>
-                            
-                        </select>
-                        <label class="text-sm text-white/70" for="qty">Qty</label>
-                        <input id="qty" type="number" min="1" value="0" class="w-16 bg-black/60 border border-white/15 rounded-xl px-3 py-2 text-sm" />
+                    <div class="mt-10 flex items-center gap-4 text-white/70">
+                        <span class="text-xs uppercase tracking-wider">Follow</span>
+                        <a aria-label="Instagram" href="https://www.instagram.com/luminysa_ayurvedic/?igsh=MTV1YXJjeGozY3VmMw%3D%3D&utm_source=qr#" target="_blank" class="hover:text-white transition-colors">Instagram</a>
+                        <a aria-label="TikTok" href="https://www.tiktok.com/@luminysa_1?_t=ZS-8zOdz1VaAUi&_r=1" target="_blank" class="hover:text-white transition-colors">TikTok</a>
+                        <a aria-label="Facebook" href="https://www.facebook.com/share/16yz8GPiWU/?mibextid=wwXIfr" target="_blank" class="hover:text-white transition-colors">Facebook</a>
                     </div>
-                    <div class="flex items-baseline gap-4">
-                        <span class="text-3xl font-semibold">LKR <span id="price">900</span></span>
-                        
-                    </div>
-                    <div class="flex flex-wrap gap-3" id="order">
-                        <a id="waBtn" href="#" target="_blank" rel="noopener" class="px-5 py-3 rounded-2xl bg-green-500 text-black font-medium hover:brightness-110 transition-transform hover:scale-105">Order via WhatsApp</a>
-                       
-                    </div>
-                    <details class="mt-4 bg-black/40 border border-white/10 rounded-2xl p-4 text-sm">
-                        <summary class="cursor-pointer font-medium">How to use</summary>
-                        <p class="mt-2 text-white/70">ඔබේ මුහුනත් අව්වට කලු වෙලාද..මුහුනේ ලප කැලැල්ද..මුහුනේ කුරුලෑ,බිබිලි ආදිය දාලාද.. මෙන්න ඒයට එකම විසදුම.. </p>
-                        <p>පලමු භාවිතයෙන්ම සමෙහි දීප්තිය වැඩි කරන මුල්තානි මිට්ටි හා තවත් ඖෂධීය ද්‍රව්‍ය රැසක් යොදා ගනිමින් නිශ්පාදනය කර ඇති මෙය භාවිතය මගින් ඔබට,</p>  <p>කුරුලෑ,කුරුලෑ කැලැල් අවම කරයි.<p>මුහුනෙහි අදුරු ගතිය ඉවත් කරයි.</p> <p>මුහුනට නව පෙනුමක් ලබා දෙයි.</p> <p>හිරු එලියෙන් අදුරු වූ ඔබගේ සමට නව දීප්තියක් ලබා දෙයි. </p><p>සමෙහි අනවශ්‍යය තෙල් ඉවත් කරයි.</p> <p>සම වයසට යාම පාලනය කරයි.</p><p>භාවිතා කරන ආකාරය</p> <p>1. මුහුණ සෝදා පිරිසිදු කර ගන්න.</p><p>2. මුහුණ තෙත් තත්ත්වයෙන්ම මෙම පැක් මෘදු ලෙස සම මත තැබිය යුතුය.</p>  <p>3. විනාඩි 15-20ක් පමණ තබා සාමාන්‍ය ජලයෙන් සෝදා ගන්න.</p><p>4. සතියට 2-3 වතාවක් භාවිතා කිරීමෙන් හොඳ ප්‍රතිඵල ලබා ගත හැක. </p> <p> ඔබගේ සමෙහි ස්වභාවය අනුව රෝස වතුර,නැවුම් කිරි,මීපැනි ආදිය සමගද මෙම පැක් එක මිශ්‍ර කර ආලේප කල හැක..</p>
-                        <p class="mt-2 text-white/70">Is your face dull and dark? Do you have blemishes, dark spots, or pigmentation on your skin? Here is the perfect solution.</p>
-<p>This product is made with natural multani mitti and other medicinal ingredients that help to:</p>
-<p>Reduce blemishes and dark spots.</p>
-<p>Remove dullness from your face.</p>
-<p>Give your face a fresh and youthful appearance.</p>
-<p>Restore glow to sun-damaged skin.</p>
-<p>Remove excess oil from the skin.</p>
-<p>Slow down skin aging.</p>
-
-<p>How to use:</p>
-<p>1 Clean your face thoroughly.</p>
-<p>2 Apply the pack gently on damp skin.</p>
-<p>3 Leave it for 15–20 minutes, then wash off with normal water.</p>
-<p>4 Use 2–3 times a week for best results.</p>
-
-<p>You can also mix this pack with rose water, fresh milk, or honey according to your skin type before applying.</p>
-
-                    </details>
-                 
+                </div>
+                <div class="relative" data-aos="zoom-in" data-aos-delay="200" data-tilt data-tilt-max="10" data-tilt-scale="1.05">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-amber-300/20 via-rose-300/20 to-fuchsia-300/20 blur-3xl rounded-3xl animate-pulse" style="animation-duration: 5s;"></div>
+                    <img src="Natural Skin Care, Face Care, Instagram Post.png" alt="LumiNysa Face Pack" class="relative rounded-3xl w-full border border-white/10 shadow-2xl shadow-black/50" />
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" class="overflow-hidden">
-        <div class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-8">
-            <div data-aos="fade-up">
-                <h3 class="text-xl font-semibold">Contact</h3>
-                <p class="mt-2 text-white/70">DM us on social or say hello on WhatsApp.</p>
-                <div class="mt-5 flex flex-wrap gap-3">
-                    <a href="https://wa.me/94712113294" target="_blank" class="px-4 py-2 rounded-xl bg-green-500 text-black transition-transform hover:scale-105">WhatsApp</a>
-                    
+        <section id="product" class="bg-black/20 border-y border-white/10 overflow-hidden backdrop-blur-sm">
+            <div class="max-w-6xl mx-auto px-4 py-20">
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="rounded-3xl p-1 bg-gradient-to-br from-amber-300/20 via-rose-300/10 to-fuchsia-300/20" data-aos="fade-right" data-tilt data-tilt-max="8" data-tilt-scale="1.03">
+                        <img src="WhatsApp Image 2025-08-27 at 14.32.39_41be4aa7.png" alt="LumiNysa Face Pack Jar" class="rounded-[22px] w-full bg-black border border-white/10" />
+                    </div>
+                    <div class="space-y-6" data-aos="fade-left" data-aos-delay="100">
+                        <h2 class="text-3xl md:text-4xl font-bold">LumiNysa Face Pack</h2>
+                        <p class="text-white/70">Herbal blend with turmeric, sandalwood, aloe and kaolin. Smooths, brightens and refreshes — suitable for all skin types.</p>
+                        <div id="benefits" class="grid grid-cols-2 gap-3 text-sm">
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-amber-300/50 hover:bg-amber-400/10">✨ Natural glow</div>
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-amber-300/50 hover:bg-amber-400/10">🛡️ Gentle on skin</div>
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-amber-300/50 hover:bg-amber-400/10">🌿 Herbal formula</div>
+                            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-amber-300/50 hover:bg-amber-400/10">🧪 Paraben‑free</div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <label class="text-sm text-white/70" for="variant">Size</label>
+                            <select id="variant" class="bg-black/60 border border-white/15 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none">
+                                <option value="100g|900">100 g — LKR 900</option>
+                            </select>
+                            <label class="text-sm text-white/70" for="qty">Qty</label>
+                            <input id="qty" type="number" min="1" value="1" class="w-20 bg-black/60 border border-white/15 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none" />
+                        </div>
+                        <div class="flex items-baseline gap-4">
+                            <span class="text-4xl font-semibold">LKR <span id="price">900</span></span>
+                        </div>
+                        <div class="flex flex-wrap gap-4" id="order">
+                            <a id="waBtn" href="#" target="_blank" rel="noopener" class="px-6 py-3 rounded-2xl bg-green-500 text-black font-semibold hover:bg-green-400 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-green-500/20">Order via WhatsApp</a>
+                        </div>
+                        <details class="mt-4 bg-white/5 border border-white/10 rounded-2xl p-4 text-sm pt-4">
+                            <summary class="cursor-pointer font-medium hover:text-amber-300 transition-colors">How to use</summary>
+                            <div class="mt-3 text-white/70 space-y-3 border-t border-white/10 pt-3">
+                                <p>ඔබේ මුහුණත් අව්වට කළු වෙලාද? මුහුණේ ලප කැලැල්, කුරුලෑ, බිබිලි ආදියෙන් පීඩා විඳිනවද? මෙන්න ඒ සියල්ලටම එකම විසඳුම.</p>
+                                <p>පළමු භාවිතයෙන්ම සමෙහි දීප්තිය වැඩි කරන මුල්තානි මිට්ටි හා තවත් ඖෂධීය ද්‍රව්‍ය රැසක් යොදා නිෂ්පාදනය කර ඇත. මෙය භාවිතයෙන් ඔබට,</p>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>කුරුලෑ සහ කුරුලෑ කැලැල් අවම කරයි.</li>
+                                    <li>මුහුණෙහි අඳුරු ගතිය ඉවත් කරයි.</li>
+                                    <li>මුහුණට නව පෙනුමක් ලබා දෙයි.</li>
+                                    <li>හිරු එළියෙන් අඳුරු වූ සමට නව දීප්තියක් ලබා දෙයි.</li>
+                                    <li>සමෙහි අනවශ්‍ය තෙල් ඉවත් කරයි.</li>
+                                    <li>සම වයසට යාම පාලනය කරයි.</li>
+                                </ul>
+                                <p class="font-semibold pt-2">භාවිතා කරන ආකාරය:</p>
+                                <ol class="list-decimal list-inside space-y-1">
+                                    <li>මුහුණ හොඳින් සෝදා පිරිසිදු කර ගන්න.</li>
+                                    <li>තෙත මුහුණ මත මෙම පැක් එක මෘදුව ආලේප කරන්න.</li>
+                                    <li>විනාඩි 15-20ක් පමණ තබා සාමාන්‍ය ජලයෙන් සෝදා හරින්න.</li>
+                                    <li>සතියට 2-3 වතාවක් භාවිතා කිරීමෙන් හොඳම ප්‍රතිඵල ලබා ගත හැක.</li>
+                                </ol>
+                                <p>ඔබගේ සමෙහි ස්වභාවය අනුව රෝස වතුර, නැවුම් කිරි, හෝ මී පැණි සමග මිශ්‍ර කර ආලේප කළ හැක.</p>
+                            </div>
+                        </details>
+                    </div>
                 </div>
             </div>
-            <div data-aos="fade-up" data-aos-delay="100">
-                <h3 class="text-xl font-semibold">Follow LumiNysa</h3>
-                <div class="mt-4 flex items-center gap-4">
-                    <a href="https://www.instagram.com/luminysa_ayurvedic/?igsh=MTV1YXJjeGozY3VmMw%3D%3D&utm_source=qr#" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 border border-white/10 transition-transform hover:scale-105">Instagram</a>
-                    <a href="https://www.tiktok.com/@luminysa_1?_t=ZS-8zOdz1VaAUi&_r=1" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 border border-white/10 transition-transform hover:scale-105">TikTok</a>
-                    <a href="https://www.facebook.com/share/16yz8GPiWU/?mibextid=wwXIfr" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 border border-white/10 transition-transform hover:scale-105">Facebook</a>
+        </section>
+
+        <section id="contact" class="overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-10">
+                <div data-aos="fade-up">
+                    <h3 class="text-2xl font-semibold">Contact Us</h3>
+                    <p class="mt-2 text-white/70">DM us on social media or say hello on WhatsApp.</p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="https://wa.me/94712113294" target="_blank" class="px-5 py-3 rounded-xl bg-green-500 text-black transition-transform hover:scale-105 font-semibold">Contact on WhatsApp</a>
+                    </div>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-semibold">Follow LumiNysa</h3>
+                    <div class="mt-6 flex items-center gap-4">
+                        <a href="https://www.instagram.com/luminysa_ayurvedic/?igsh=MTV1YXJjeGozY3VmMw%3D%3D&utm_source=qr#" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 border border-white/10 transition-transform hover:scale-105 hover:bg-white/20">Instagram</a>
+                        <a href="https://www.tiktok.com/@luminysa_1?_t=ZS-8zOdz1VaAUi&_r=1" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 border border-white/10 transition-transform hover:scale-105 hover:bg-white/20">TikTok</a>
+                        <a href="https://www.facebook.com/share/16yz8GPiWU/?mibextid=wwXIfr" target="_blank" class="px-4 py-2 rounded-xl bg-white/10 border border-white/10 transition-transform hover:scale-105 hover:bg-white/20">Facebook</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer class="border-t border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-8 text-sm flex flex-col md:flex-row items-center justify-between gap-4">
             <p class="text-white/50">© <span id="year"></span> LumiNysa. All rights reserved.</p>
-            <div class="text-white/40">Created  by <a href="https://www.linkedin.com/in/savindu-wijesinghe/"class="hover:text-cyan-400 transition"> Savindu Wijesinghe </a>.</div>
+            <div class="text-white/40">Created by <a href="https://www.linkedin.com/in/savindu-wijesinghe/" class="hover:text-cyan-400 transition">Savindu Wijesinghe</a>.</div>
         </div>
     </footer>
 
+    <script type="text/javascript" src="https://unpkg.com/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+    
     <script>
         const variantEl = document.getElementById('variant');
         const qtyEl = document.getElementById('qty');
         const priceEl = document.getElementById('price');
-        const compareEl = document.getElementById('compare');
         const waBtn = document.getElementById('waBtn');
 
-        function updatePrice() {
-            const [size, price] = variantEl.value.split('|');
-            priceEl.textContent = Number(price).toLocaleString('en-LK');
-            compareEl.textContent = `LKR ${(Math.round(Number(price) * 1.16)).toLocaleString('en-LK')}`.replace('LKR LKR', 'LKR ');
-            updateWA();
-        }
-
-        function updateWA() {
+        function updatePriceAndLink() {
             const [size, price] = variantEl.value.split('|');
             const qty = Math.max(1, parseInt(qtyEl.value || '1', 10));
-            const Delivary = 350;
-            const total = Number(price) * qty + Delivary;
+            const delivery = 350; // Delivery charge
+            const totalItemPrice = Number(price) * qty;
+            const grandTotal = totalItemPrice + delivery;
+
+            priceEl.textContent = totalItemPrice.toLocaleString('en-LK');
             
-            const msg = `Hello LumiNysa! I want to order:%0A- Product: LumiNysa Face Pack%0A- Size: ${size}%0A- Quantity: ${qty} and Delivery: ${Delivary}%0A- Expected total: LKR ${total.toLocaleString('en-LK')}`;
-             
+            const msg = `Hello LumiNysa! I want to order:%0A%0A- *Product:* LumiNysa Face Pack%0A- *Size:* ${size}%0A- *Quantity:* ${qty}%0A%0A- *Subtotal:* LKR ${totalItemPrice.toLocaleString('en-LK')}%0A- *Delivery:* LKR ${delivery.toLocaleString('en-LK')}%0A- *Expected Total:* LKR ${grandTotal.toLocaleString('en-LK')}`;
+            
             const phone = '94712113294';
             waBtn.href = `https://wa.me/${phone}?text=${msg}`;
         }
 
-        variantEl.addEventListener('change', updatePrice);
-        qtyEl.addEventListener('input', updateWA);
-        updatePrice();
+        variantEl.addEventListener('change', updatePriceAndLink);
+        qtyEl.addEventListener('input', updatePriceAndLink);
+        
+        // Initial call
+        updatePriceAndLink();
 
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- NEW: Custom Cursor Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.opacity = '1';
+                cursorOutline.style.opacity = '1';
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+
+            document.querySelectorAll('a, button, summary, select, input').forEach(el => {
+                el.addEventListener('mouseover', () => {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorOutline.style.borderColor = 'rgba(251, 191, 36, 1)';
+                });
+                el.addEventListener('mouseout', () => {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorOutline.style.borderColor = 'rgba(251, 191, 36, 0.5)';
+                });
+            });
+        });
     </script>
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 800, 
-            once: true 
+            duration: 800,
+            once: true,
+            offset: 50,
         });
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
